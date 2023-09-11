@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Picker, StyleSheet, Text, TextInput, View, } from 'react-native';
+import {StyleSheet, Text, TextInput, View, Button} from 'react-native';
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
+import {Picker} from '@react-native-picker/picker';
 
 export default function App() {
   const [gender, setGender] = useState ("male")
@@ -20,6 +21,16 @@ export default function App() {
     {label: "Female", value: "female"}
   ];
 
+  const calculate = () => {
+    let result = 0
+    if (gender === "male") {
+      result = (879 + 10.2 * weight) * intensity
+    }
+    else {
+      result = (795 + 7.18 * weight) * intensity
+    }
+    setCalories(result)
+  }
 
   return (
     <View style={styles.container}>
@@ -28,7 +39,7 @@ export default function App() {
       <TextInput
       placeHolder="in kilograms"
       keyboardType='number-pad'
-      onChangeText={text => setPaino(text)}
+      onChangeText={text => setWeight(text)}
       />
 
       </View>
@@ -64,7 +75,7 @@ export default function App() {
         <Text>{calories.toFixed(0)}</Text>
 
       </View>
-      <Button title="Calculate" />
+      <Button title="Calculate" onPress={calculate}/>
     </View>
   );
 }
